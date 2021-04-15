@@ -1,4 +1,7 @@
 ﻿using GuaranteedRateHomework.Helpers;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,6 +13,11 @@ namespace GuaranteedRateHomework
     class Program
     {
         public static async Task Main(string[] args)
+        {
+            await ProcessAndSortInput(args);
+        }
+
+        public static async Task ProcessAndSortInput(string[] args)
         {
             //filepath for input/output files
             string path = string.Empty;
@@ -34,6 +42,9 @@ namespace GuaranteedRateHomework
                     allPersons = allPersons.Concat(Filtering.ReadFileData(path)).ToList();
                 }
             }
+
+            //save combined records
+            Filtering.SaveFile(allPersons);
 
             //sort the output in the three ways specified
             var genderTask = Task.Run(() => Sorting.GenderSort(allPersons));

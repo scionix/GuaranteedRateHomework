@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GuaranteedRateHomework
 {
-    class DataGenerator
+    public class DataGenerator
     {
         //all name lists are size 20
         private static List<string> _maleNames = new List<String>
@@ -114,9 +115,9 @@ namespace GuaranteedRateHomework
 
         public static async Task GenerateData(int lines)
         {
-            await DataGenerator.generateFile(lines, " | ", "SampleInputPipe.txt");
-            await DataGenerator.generateFile(lines, ", ", "SampleInputComma.txt");
-            await DataGenerator.generateFile(lines, " ", "SampleInputSpace.txt");
+            await generateFile(lines, " | ", "SampleInputPipe.txt");
+            await generateFile(lines, ", ", "SampleInputComma.txt");
+            await generateFile(lines, " ", "SampleInputSpace.txt");
         }
     }
 }

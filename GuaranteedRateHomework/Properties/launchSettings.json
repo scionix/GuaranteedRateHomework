@@ -2,7 +2,7 @@
   "profiles": {
     "GuaranteedRateHomework": {
       "commandName": "Project",
-      "commandLineArgs": "C:\\Users\\Will\\source\\repos\\GuaranteedRateHomework\\GuaranteedRateHomework\\bin\\Debug\\net5.0\\SampleInputComma.txt"
+      "commandLineArgs": "C:\\Users\\Will\\source\\repos\\GuaranteedRateHomework\\GuaranteedRateHomework\\bin\\Debug\\net5.0\\SampleInputComma.txt C:\\Users\\Will\\source\\repos\\GuaranteedRateHomework\\GuaranteedRateHomework\\bin\\Debug\\net5.0\\SampleInputPipe.txt C:\\Users\\Will\\source\\repos\\GuaranteedRateHomework\\GuaranteedRateHomework\\bin\\Debug\\net5.0\\SampleInputSpace.txt"
     }
   }
 }
