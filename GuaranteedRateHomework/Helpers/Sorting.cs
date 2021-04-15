@@ -5,7 +5,7 @@ namespace GuaranteedRateHomework
 {
     public class Sorting
     {
-        public static List<Person> GenderSort(List<Person> personList)
+        public static List<Person> GenderSort(IEnumerable<Person> personList)
         {
             List<Person> genderSorted = personList.OrderBy(o => o.Gender)
                                                   .ThenBy(o => o.LastName)

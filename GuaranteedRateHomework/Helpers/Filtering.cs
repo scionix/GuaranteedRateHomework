@@ -5,7 +5,7 @@ namespace GuaranteedRateHomework.Helpers
 {
     public class Filtering
     {
-        public static List<Person> PopulatePersons(List<string> lines)
+        public static List<Person> PopulatePersons(IEnumerable<string> lines)
         {
             List<Person> output = new List<Person>();
             char[] delimiters = { '|', ',', ' '};
@@ -32,7 +32,7 @@ namespace GuaranteedRateHomework.Helpers
             return output;
         }
 
-        public static void PrintOutput(List<Person> personList, string header)
+        public static void PrintOutput(IEnumerable<Person> personList, string header)
         {
             //print a header before the list output
             Console.WriteLine("-----" + header + "-----");

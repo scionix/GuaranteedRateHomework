@@ -30,7 +30,7 @@ namespace GuaranteedRateHomework.Helpers
             return personsList;
         }
 
-        public static void SaveFile(List<Person> personList)
+        public static void SaveFile(IEnumerable<Person> personList)
         {
             //serialize the list of Persons into JSON text
             var json = JsonSerializer.Serialize(personList);
