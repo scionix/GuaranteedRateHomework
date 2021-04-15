@@ -28,6 +28,7 @@ namespace GuaranteedRateHomework
             "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Martin"
         };
 
+        //colors list is size 8
         private static List<string> _colors = new List<String>
         {
             "Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Black", "White"
@@ -79,16 +80,16 @@ namespace GuaranteedRateHomework
 
             if (gender == 0)
             {
-                holder = _femaleNames[rnd.Next(0, 19)] + delim
-                                + _lastNames[rnd.Next(0, 19)] + delim
+                holder = _lastNames[rnd.Next(0, 19)] + delim
+                                + _femaleNames[rnd.Next(0, 19)] + delim
                                 + "Female" + delim
                                 + _colors[rnd.Next(0, 7)] + delim
                                 + createDob();
             }
             else
             {
-                holder = _maleNames[rnd.Next(0, 19)] + delim
-                                + _lastNames[rnd.Next(0, 19)] + delim
+                holder = _lastNames[rnd.Next(0, 19)] + delim
+                                + _maleNames[rnd.Next(0, 19)] + delim
                                 + "Male" + delim
                                 + _colors[rnd.Next(0, 7)] + delim
                                 + createDob();
