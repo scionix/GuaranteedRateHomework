@@ -111,5 +111,12 @@ namespace GuaranteedRateHomework
 
             return month + "/" + day + "/" + year;
         }
+
+        public static async Task GenerateData(int lines)
+        {
+            await DataGenerator.generateFile(lines, " | ", "SampleInputPipe.txt");
+            await DataGenerator.generateFile(lines, ", ", "SampleInputComma.txt");
+            await DataGenerator.generateFile(lines, " ", "SampleInputSpace.txt");
+        }
     }
 }
