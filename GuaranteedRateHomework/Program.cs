@@ -1,7 +1,4 @@
 ﻿using GuaranteedRateHomework.Helpers;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -39,12 +36,12 @@ namespace GuaranteedRateHomework
                 foreach (string str in args)
                 {
                     path = str;
-                    allPersons = allPersons.Concat(Filtering.ReadFileData(path)).ToList();
+                    allPersons = allPersons.Concat(FileIO.ReadFileData(path)).ToList();
                 }
             }
 
             //save combined records
-            Filtering.SaveFile(allPersons);
+            FileIO.SaveFile(allPersons);
 
             //sort the output in the three ways specified
             var genderTask = Task.Run(() => Sorting.GenderSort(allPersons));

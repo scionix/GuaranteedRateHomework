@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace GuaranteedRateHomeworkAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("records")]
     public class PersonController : ControllerBase
     {
         private readonly ILogger<PersonController> _logger;
@@ -24,25 +24,25 @@ namespace GuaranteedRateHomeworkAPI.Controllers
             _personRepository = personRepository;
         }
 
-        [HttpGet ("{name}")]
+        [HttpGet ("name")]
         public async Task<ActionResult<IEnumerable<Person>>> GetPeopleByLastName()
         {
             return Ok(await _personRepository.GetPeopleByLastName());
         }
 
-        [HttpGet("{gender}")]
-        public async Task<ActionResult<IEnumerable<Person>>> GetPeopleByGender(string gender)
+        [HttpGet("gender")]
+        public async Task<ActionResult<IEnumerable<Person>>> GetPeopleByGender()
         {
             return Ok(await _personRepository.GetPeopleByGender());
         }
 
-        [HttpGet("{birthdate}")]
+        [HttpGet("birthdate")]
         public async Task<ActionResult<IEnumerable<Person>>> GetPeopleByBirthdate()
         {
             return Ok(await _personRepository.GetPeopleByBirthdate());
         }
 
-        [HttpPost("{records}")]
+        [HttpPost("records")]
         public async Task<ActionResult<Person>> CreateRecord([FromBody] Person pers)
         {
             var success = await _personRepository.CreateRecord(pers);

@@ -13,6 +13,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using GuaranteedRateHomeworkAPI.Interfaces;
+using GuaranteedRateHomeworkAPI.Repositories;
 
 namespace GuaranteedRateHomeworkAPI
 {
@@ -29,6 +31,8 @@ namespace GuaranteedRateHomeworkAPI
         {
 
             services.AddControllers();
+
+            services.AddScoped<IPersonRepository, PersonRepository>();
 
             services.AddDbContext<DataContext>(options =>
             {

@@ -1,37 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GuaranteedRateHomework.Helpers
 {
     public class Filtering
     {
-        public static List<Person> ReadFileData(string path)
-        {
-            //'fileLinesList' holds raw strings from the files
-            //'personsList' holds the Person objects created from those raw strings
-            List<string> fileLinesList = new List<string>();
-            List<Person> personsList = new List<Person>();
-
-            //try to read our sample input, throw exceptions 
-            try
-            {
-                string[] fileLines = System.IO.File.ReadAllLines(path);
-                fileLinesList = new List<string>(fileLines);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-            
-            //Filter our list of input into Persons objects
-            personsList = PopulatePersons(fileLinesList);
-            return personsList;
-        }
-
         public static List<Person> PopulatePersons(List<string> lines)
         {
             List<Person> output = new List<Person>();
@@ -71,29 +44,6 @@ namespace GuaranteedRateHomework.Helpers
                 Console.WriteLine("{0,-15} {1,-15} {2,-15} {3,-15} {4,-15}\n", p.LastName, p.FirstName, p.Gender, p.FavoriteColor, p.DateOfBirth.Date);
             }
             Console.WriteLine("\n");
-        }
-
-        public static void SaveFile(List<Person> personList)
-        {
-            List<string> fileOutput = new List<string>();
-            string holder = string.Empty;
-
-            //turn the person objects into strings and put them in the list
-            foreach (Person pers in personList)
-            {
-                holder = pers.LastName + " " + pers.FirstName + " " + pers.Gender + " " + pers.FavoriteColor + " " + pers.DateOfBirth.ToString() + "\n";
-                fileOutput.Add(holder);
-            }
-
-            //save output to file
-            try
-            {
-                System.IO.File.WriteAllLines("TestOutput.txt", fileOutput);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
         }
     }
 }
