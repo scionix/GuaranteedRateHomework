@@ -1,35 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GuaranteedRateHomework.Helpers
 {
     public class Filtering
     {
-        public static List<Person> PopulatePersons(IEnumerable<string> lines)
+        public static IEnumerable<Person> PopulatePersons(IEnumerable<string> lines)
         {
             List<Person> output = new List<Person>();
-            char[] delimiters = { '|', ',', ' '};
 
-            if (lines.Count == 0)
+            if (lines.Count() == 0)
                 Console.WriteLine("Input file was empty!");
 
             //split the string based on delimiter and create the person object
             //we are going to assume the input is properly formatted for brevity's sake
             foreach (string str in lines)
             {
-                string[] personStrings = str.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
-                Person p = new Person
-                {
-                    LastName = personStrings[0],
-                    FirstName = personStrings[1],
-                    Gender = personStrings[2],
-                    FavoriteColor = personStrings[3],
-                    DateOfBirth = DateTime.Parse(personStrings[4])
-                };
+                Person p = CreatePersonFromString(str);
                 output.Add(p);
             }
 
             return output;
+        }
+
+        public static Person CreatePersonFromString(string str)
+        {
+            //split the strings based on our delimiters
+            char[] delimiters = { '|', ',', ' ' };
+            string[] personString = str.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+
+            //malformed person string, can't make an object out of it
+            //just return a new person object
+            if (personString.Length != 5)
+            {
+                return new Person();
+            }
+
+            Person pers = new Person
+            {
+                LastName = personString[0],
+                FirstName = personString[1],
+                Gender = personString[2],
+                FavoriteColor = personString[3],
+                DateOfBirth = DateTime.Parse(personString[4])
+            };
+
+            return pers;
         }
 
         public static void PrintOutput(IEnumerable<Person> personList, string header)

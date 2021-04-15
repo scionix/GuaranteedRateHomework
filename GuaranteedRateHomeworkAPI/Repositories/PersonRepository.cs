@@ -1,5 +1,6 @@
-﻿using GuaranteedRateHomeworkAPI.Data;
-using GuaranteedRateHomeworkAPI.Entities;
+﻿using GuaranteedRateHomework;
+using GuaranteedRateHomework.Helpers;
+using GuaranteedRateHomeworkAPI.Data;
 using GuaranteedRateHomeworkAPI.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -22,19 +23,19 @@ namespace GuaranteedRateHomeworkAPI.Repositories
         public async Task<IEnumerable<Person>> GetPeopleByBirthdate()
         {
             var list = await _context.People.ToListAsync();
-            return ListSorting.BirthdateSort(list);
+            return Sorting.BirthdateSort(list);
         }
 
         public async Task<IEnumerable<Person>> GetPeopleByGender()
         {
             var list = await _context.People.ToListAsync();
-            return ListSorting.GenderSort(list);
+            return Sorting.GenderSort(list);
         }
 
         public async Task<IEnumerable<Person>> GetPeopleByLastName()
         {
             var list = await _context.People.ToListAsync();
-            return ListSorting.LastnameSort(list);
+            return Sorting.LastnameSort(list);
         }
 
         public async Task<bool> CreateRecord(Person pers)

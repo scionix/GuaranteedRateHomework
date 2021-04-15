@@ -7,12 +7,12 @@ namespace GuaranteedRateHomework.Helpers
 {
     public class FileIO
     {
-        public static List<Person> ReadFileData(string path)
+        public static IEnumerable<Person> ReadFileData(string path)
         {
             //'fileLinesList' holds raw strings from the files
             //'personsList' holds the Person objects created from those raw strings
-            List<string> fileLinesList = new List<string>();
-            List<Person> personsList = new List<Person>();
+            IEnumerable<string> fileLinesList = new List<string>();
+            IEnumerable<Person> personsList = new List<Person>();
 
             //try to read our sample input, throw exceptions 
             try

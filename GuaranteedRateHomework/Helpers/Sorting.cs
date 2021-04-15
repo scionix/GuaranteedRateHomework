@@ -5,7 +5,7 @@ namespace GuaranteedRateHomework
 {
     public class Sorting
     {
-        public static List<Person> GenderSort(IEnumerable<Person> personList)
+        public static IEnumerable<Person> GenderSort(IEnumerable<Person> personList)
         {
             List<Person> genderSorted = personList.OrderBy(o => o.Gender)
                                                   .ThenBy(o => o.LastName)
@@ -13,7 +13,7 @@ namespace GuaranteedRateHomework
                                                   .ToList();
             return genderSorted;
         }
-        public static List<Person> BirthdateSort(List<Person> personList)
+        public static IEnumerable<Person> BirthdateSort(IEnumerable<Person> personList)
         {
             List<Person> birthdateSorted = personList.OrderBy(o => o.DateOfBirth)
                                                      .ThenBy(o => o.LastName)
@@ -22,7 +22,7 @@ namespace GuaranteedRateHomework
             return birthdateSorted;
         }
 
-        public static List<Person> LastnameSort(List<Person> personList)
+        public static IEnumerable<Person> LastnameSort(IEnumerable<Person> personList)
         {
             List<Person> lastnameSorted = personList.OrderByDescending(o => o.LastName)
                                                     .ThenByDescending(o => o.FirstName)

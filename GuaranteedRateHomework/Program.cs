@@ -47,9 +47,9 @@ namespace GuaranteedRateHomework
             var genderTask = Task.Run(() => Sorting.GenderSort(allPersons));
             var birthdateTask = Task.Run(() => Sorting.BirthdateSort(allPersons));
             var lastnameTask = Task.Run(() => Sorting.LastnameSort(allPersons));
-            List<Person> genderSorted = await genderTask;
-            List<Person> birthdateSorted = await birthdateTask;
-            List<Person> lastnameSorted = await lastnameTask;
+            IEnumerable<Person> genderSorted = await genderTask;
+            IEnumerable<Person> birthdateSorted = await birthdateTask;
+            IEnumerable<Person> lastnameSorted = await lastnameTask;
 
             //print the three sorted lists
             Filtering.PrintOutput(genderSorted, "Output 1");

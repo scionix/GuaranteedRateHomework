@@ -1,12 +1,9 @@
-﻿using GuaranteedRateHomeworkAPI.Data;
-using GuaranteedRateHomeworkAPI.Entities;
+﻿using GuaranteedRateHomework;
+using GuaranteedRateHomework.Helpers;
 using GuaranteedRateHomeworkAPI.Interfaces;
-using GuaranteedRateHomeworkAPI.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GuaranteedRateHomeworkAPI.Controllers
@@ -42,9 +39,11 @@ namespace GuaranteedRateHomeworkAPI.Controllers
             return Ok(await _personRepository.GetPeopleByBirthdate());
         }
 
-        [HttpPost("records")]
-        public async Task<ActionResult<Person>> CreateRecord([FromBody] Person pers)
+        [HttpPost]
+        public async Task<ActionResult<Person>> CreateRecord([FromBody] string personString)
         {
+            //filter the raw text from the input and make a person object
+            Person pers = Filtering.CreatePersonFromString(personString);
             var success = await _personRepository.CreateRecord(pers);
 
             if (success)

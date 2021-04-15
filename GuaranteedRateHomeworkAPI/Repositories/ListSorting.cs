@@ -1,8 +1,6 @@
-﻿using GuaranteedRateHomeworkAPI.Entities;
-using System;
+﻿using GuaranteedRateHomework;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace GuaranteedRateHomeworkAPI.Repositories
 {
