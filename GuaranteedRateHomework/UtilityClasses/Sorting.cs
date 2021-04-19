@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace GuaranteedRateHomework
 {
-    public class Sorting
+    public static class Sorting
     {
         public static IEnumerable<Person> GenderSort(IEnumerable<Person> personList)
         {

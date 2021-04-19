@@ -5,10 +5,12 @@ VisualStudioVersion = 16.0.31105.61
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuaranteedRateHomework", "GuaranteedRateHomework\GuaranteedRateHomework.csproj", "{8A354D29-F64D-4BE0-B39D-8945D7CD1D08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuaranteedRateHomeworkAPI", "GuaranteedRateHomeworkAPI\GuaranteedRateHomeworkAPI.csproj", "{758AE5F2-E5B7-483D-B68E-B32654998092}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuaranteedRateHomeworkAPI", "GuaranteedRateHomeworkAPI\GuaranteedRateHomeworkAPI.csproj", "{758AE5F2-E5B7-483D-B68E-B32654998092}"
 	ProjectSection(ProjectDependencies) = postProject
 		{8A354D29-F64D-4BE0-B39D-8945D7CD1D08} = {8A354D29-F64D-4BE0-B39D-8945D7CD1D08}
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GRUnitTests", "XUnit.Coverlet.Collector\GRUnitTests.csproj", "{01FE1FC5-F3F2-4DDB-88D1-823A52FA5F20}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +26,10 @@ Global
 		{758AE5F2-E5B7-483D-B68E-B32654998092}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{758AE5F2-E5B7-483D-B68E-B32654998092}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{758AE5F2-E5B7-483D-B68E-B32654998092}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01FE1FC5-F3F2-4DDB-88D1-823A52FA5F20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01FE1FC5-F3F2-4DDB-88D1-823A52FA5F20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01FE1FC5-F3F2-4DDB-88D1-823A52FA5F20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01FE1FC5-F3F2-4DDB-88D1-823A52FA5F20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

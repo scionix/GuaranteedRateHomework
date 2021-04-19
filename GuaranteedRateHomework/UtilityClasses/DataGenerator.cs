@@ -8,34 +8,34 @@ using System.Threading.Tasks;
 
 namespace GuaranteedRateHomework
 {
-    public class DataGenerator
+    public static class DataGenerator
     {
         //all name lists are size 20
-        private static List<string> _maleNames = new List<String>
+        public static List<string> _maleNames = new List<String>
         {
             "Liam", "Noah", "Oliver", "William", "Elijah", "James", "Benjamin", "Lucas", "Mason", "Ethan",
             "Alexander", "Henry", "Jacob", "Michael", "Daniel", "Logan", "Jackson", "Sebastian", "Jack", "Aiden"
         };
 
-        private static List<string> _femaleNames = new List<String>
+        public static List<string> _femaleNames = new List<String>
         {
             "Olivia", "Emma", "Ava", "Sophia", "Isabella", "Charlotte", "Amelia", "Mia", "Harper", "Evelyn",
             "Abigail", "Emily", "Ella", "Elizabeth", "Camila", "Luna", "Sofia", "Avery", "Mila", "Aria"
         };
 
-        private static List<string> _lastNames = new List<String>
+        public static List<string> _lastNames = new List<String>
         {
             "Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez",
             "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Martin"
         };
 
         //colors list is size 8
-        private static List<string> _colors = new List<String>
+        public static List<string> _colors = new List<String>
         {
             "Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Black", "White"
         };
 
-        public static async Task generateFile(int lines, string delim, string fileName)
+        public static void GenerateFile(int lines, string delim, string fileName)
         {
             //holds our lines to go out to the file
             List<string> toWrite = new List<string>();
@@ -49,12 +49,12 @@ namespace GuaranteedRateHomework
                 //make a line with a male name if 'i' is even
                 if (i % 2 == 0)
                 {
-                    holder = buildLine(1, delim);
+                    holder = BuildLine(1, delim);
                     toWrite.Add(holder);
                 }
                 else 
                 {
-                    holder = buildLine(0, delim);
+                    holder = BuildLine(0, delim);
                     toWrite.Add(holder);
                 }
             }
@@ -62,7 +62,7 @@ namespace GuaranteedRateHomework
             //output lines to file with given filename
             try
             {
-                await File.WriteAllLinesAsync(fileName, toWrite);
+                File.WriteAllLines(fileName, toWrite);
             }
             catch (Exception ex)
             {
@@ -73,7 +73,7 @@ namespace GuaranteedRateHomework
         //build a line of input with a name
         //given 1, build male name, given 0, build female name
         //defaults to male name if given weird number
-        private static string buildLine(int gender, string delim)
+        public static string BuildLine(int gender, string delim)
         {
             //random for indexing our list of names/colors to choose from
             Random rnd = new Random();
@@ -85,7 +85,7 @@ namespace GuaranteedRateHomework
                                 + _femaleNames[rnd.Next(0, 19)] + delim
                                 + "Female" + delim
                                 + _colors[rnd.Next(0, 7)] + delim
-                                + createDob();
+                                + CreateDob();
             }
             else
             {
@@ -93,14 +93,14 @@ namespace GuaranteedRateHomework
                                 + _maleNames[rnd.Next(0, 19)] + delim
                                 + "Male" + delim
                                 + _colors[rnd.Next(0, 7)] + delim
-                                + createDob();
+                                + CreateDob();
             }
 
             return holder;
         }
 
         //create the DateOfBirth string for a given line
-        private static string createDob()
+        public static string CreateDob()
         {
             Random rnd = new Random();
 
@@ -113,11 +113,11 @@ namespace GuaranteedRateHomework
             return month + "/" + day + "/" + year;
         }
 
-        public static async Task GenerateData(int lines)
+        public static void GenerateData(int lines, string path)
         {
-            await generateFile(lines, " | ", "SampleInputPipe.txt");
-            await generateFile(lines, ", ", "SampleInputComma.txt");
-            await generateFile(lines, " ", "SampleInputSpace.txt");
+            GenerateFile(Math.Abs(lines), " | ", (path + "\\SampleInputPipe.txt"));
+            GenerateFile(Math.Abs(lines), ", ", (path + "\\SampleInputComma.txt"));
+            GenerateFile(Math.Abs(lines), " ", (path + "\\SampleInputSpace.txt"));
         }
     }
 }

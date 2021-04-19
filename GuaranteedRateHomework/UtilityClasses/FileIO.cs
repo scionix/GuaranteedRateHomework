@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace GuaranteedRateHomework.Helpers
 {
-    public class FileIO
+    public static class FileIO
     {
         public static IEnumerable<Person> ReadFileData(string path)
         {
@@ -17,12 +17,13 @@ namespace GuaranteedRateHomework.Helpers
             //try to read our sample input, throw exceptions 
             try
             {
-                string[] fileLines = System.IO.File.ReadAllLines(path);
+                string[] fileLines = File.ReadAllLines(path);
                 fileLinesList = new List<string>(fileLines);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
+                throw;
             }
 
             //Filter our list of input into Persons objects
@@ -30,7 +31,7 @@ namespace GuaranteedRateHomework.Helpers
             return personsList;
         }
 
-        public static void SaveFile(IEnumerable<Person> personList)
+        public static void SaveFile(IEnumerable<Person> personList, string path)
         {
             //serialize the list of Persons into JSON text
             var json = JsonSerializer.Serialize(personList);
@@ -38,11 +39,12 @@ namespace GuaranteedRateHomework.Helpers
             //save output to file
             try
             {
-                File.WriteAllText("C:\\Users\\Will\\source\\repos\\GuaranteedRateHomework\\GuaranteedRateHomeworkAPI\\Data\\TestOutput.json", json);
+                File.WriteAllText(path, json);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
+                throw;
             }
         }
     }
