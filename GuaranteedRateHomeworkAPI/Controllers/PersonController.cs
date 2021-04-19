@@ -4,7 +4,9 @@ using GuaranteedRateHomeworkAPI.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GuaranteedRateHomeworkAPI.Controllers
@@ -63,7 +65,15 @@ namespace GuaranteedRateHomeworkAPI.Controllers
             }
             else
             {
-                _context.Add(pers);
+                if (!personExists(pers))
+                {
+                    _context.Add(pers);
+                }
+                else 
+                {
+                    _logger.LogWarning("CreateRecord() tried to add duplicate person");
+                    return BadRequest("Attempt to create new record failed");
+                }
 
                 //sanity check that the db updated
                 if (await _context.SaveChangesAsync() > 0)
@@ -74,6 +84,18 @@ namespace GuaranteedRateHomeworkAPI.Controllers
                     return BadRequest("Attempt to create new record failed");
                 }
             }
+        }
+
+        private bool personExists(Person pers)
+        {
+            var result = _context.People.Where(x => x.LastName == pers.LastName)
+                                        .Where(x => x.FirstName == pers.FirstName)
+                                        .Where(x => x.DateOfBirth == pers.DateOfBirth);
+
+            if (result.Any())
+                return true;
+            else
+                return false;
         }
     }
 }

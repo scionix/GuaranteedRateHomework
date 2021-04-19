@@ -25,7 +25,7 @@ namespace GuaranteedRateHomeworkAPI
             {
                 var context = services.GetRequiredService<DataContext>();
                 await context.Database.MigrateAsync();
-                await Seed.SeedPeople(context, "Data/GeneratedData.json");
+                await Seed.SeedPeople(context, "Data/Output.json");
             }
             catch (Exception ex)
             {
