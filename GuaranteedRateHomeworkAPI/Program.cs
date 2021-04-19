@@ -25,12 +25,12 @@ namespace GuaranteedRateHomeworkAPI
             {
                 var context = services.GetRequiredService<DataContext>();
                 await context.Database.MigrateAsync();
-                await Seed.SeedPeople(context);
+                await Seed.SeedPeople(context, "Data/GeneratedData.json");
             }
             catch (Exception ex)
             {
                 var logger = services.GetRequiredService<ILogger<Program>>();
-                logger.LogError(ex, "An error occurred during migration");
+                logger.LogError(ex, "An error occurred during seeding and migrating");
             }
 
             await host.RunAsync();

@@ -8,11 +8,11 @@ namespace GuaranteedRateHomeworkAPI.Data
 {
     public class Seed
     {
-        public static async Task SeedPeople(DataContext context)
+        public static async Task<bool> SeedPeople(DataContext context, string path)
         {
-            if (await context.People.AnyAsync()) return;
+            if (await context.People.AnyAsync()) return false;
 
-            var userData = await System.IO.File.ReadAllTextAsync("Data/TestOutput.json");
+            var userData = await System.IO.File.ReadAllTextAsync(path);
             var people = JsonSerializer.Deserialize<List<Person>>(userData);
 
             foreach (var pers in people)
@@ -25,7 +25,10 @@ namespace GuaranteedRateHomeworkAPI.Data
                 context.People.Add(pers);
             }
 
-            await context.SaveChangesAsync();
+            if (await context.SaveChangesAsync() > 1)
+                return true;
+            else
+                return false;
         }
     }
 }
