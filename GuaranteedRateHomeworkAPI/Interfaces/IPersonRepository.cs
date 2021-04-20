@@ -10,5 +10,6 @@ namespace GuaranteedRateHomeworkAPI.Interfaces
         Task<IEnumerable<Person>> GetPeopleByLastName();
         Task<IEnumerable<Person>> GetPeopleByGender();
         Task<IEnumerable<Person>> GetPeopleByBirthdate();
+        bool PersonExists(Person pers);
     }
 }

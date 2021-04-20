@@ -1,10 +1,9 @@
 ﻿using GuaranteedRateHomework;
 using GuaranteedRateHomework.Helpers;
 using GuaranteedRateHomeworkAPI.Data;
+using GuaranteedRateHomeworkAPI.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,38 +16,31 @@ namespace GuaranteedRateHomeworkAPI.Controllers
     {
         private readonly ILogger<PersonController> _logger;
         private readonly DataContext _context;
+        private readonly IPersonRepository _repo;
 
-        public PersonController(DataContext personRepository, ILogger<PersonController> logger)
+        public PersonController(DataContext personRepository, ILogger<PersonController> logger, IPersonRepository repo)
         {
             _logger = logger;
             _context = personRepository;
+            _repo = repo;
         }
 
         [HttpGet ("name")]
         public async Task<ActionResult<IEnumerable<Person>>> GetPeopleByLastName()
         {
-            var people = await _context.People.ToListAsync();
-            people = (List<Person>)Sorting.LastnameSort(people);
-
-            return people;
+            return Ok(await _repo.GetPeopleByLastName());
         }
 
         [HttpGet("gender")]
         public async Task<ActionResult<IEnumerable<Person>>> GetPeopleByGender()
         {
-            var people = await _context.People.ToListAsync();
-            people = (List<Person>)Sorting.GenderSort(people);
-
-            return people;
+            return Ok(await _repo.GetPeopleByGender());
         }
 
         [HttpGet("birthdate")]
         public async Task<ActionResult<IEnumerable<Person>>> GetPeopleByBirthdate()
         {
-            var people = await _context.People.ToListAsync();
-            people = (List<Person>)Sorting.BirthdateSort(people);
-
-            return people;
+            return Ok(await _repo.GetPeopleByBirthdate());
         }
 
         [HttpPost]
@@ -56,34 +48,12 @@ namespace GuaranteedRateHomeworkAPI.Controllers
         {
             //filter the raw text from the input and make a person object
             Person pers = Filtering.CreatePersonFromString(personString);
+            var success = await _repo.CreateRecord(pers);
 
-            //check if the person we got from the body is properly formatted
-            if (pers.FavoriteColor == null)
-            {
-                _logger.LogWarning("CreateRecord() call failed to create a new person record due to improperly formatted person");
-                return BadRequest("Attempt to create new record failed");
-            }
+            if (success)
+                return pers;
             else
-            {
-                if (!personExists(pers))
-                {
-                    _context.Add(pers);
-                }
-                else 
-                {
-                    _logger.LogWarning("CreateRecord() tried to add duplicate person");
-                    return BadRequest("Attempt to create new record failed");
-                }
-
-                //sanity check that the db updated
-                if (await _context.SaveChangesAsync() > 0)
-                    return pers;
-                else
-                {
-                    _logger.LogWarning("CreateRecord() call failed");
-                    return BadRequest("Attempt to create new record failed");
-                }
-            }
+                return BadRequest("Attempt to create new person record failed");
         }
 
         private bool personExists(Person pers)

@@ -1,6 +1,9 @@
 ﻿using GuaranteedRateHomework;
 using GuaranteedRateHomeworkAPI.Controllers;
 using GuaranteedRateHomeworkAPI.Data;
+using GuaranteedRateHomeworkAPI.Interfaces;
+using GuaranteedRateHomeworkAPI.Repositories;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -19,15 +22,20 @@ namespace GRUnitTests.API
         }
 
         [Fact]
-        public async Task Get_Users_By_Gender_Returns_Persons_Sorted_By_Gender()
+        public async Task Get_People_By_Gender_Returns_Persons_Sorted_By_Gender()
         {
             using (var context = new DataContext(ContextOptions))
             {
+                ///setup the loggers and repository the controller relies on to work
                 var loggerMock = new Mock<ILogger<PersonController>>();
-                var controller = new PersonController(context, loggerMock.Object);
+                var repoLoggerMock = new Mock<ILogger<PersonRepository>>();
+                IPersonRepository repo = new PersonRepository(repoLoggerMock.Object, context);
+                var controller = new PersonController(context, loggerMock.Object, repo);
 
-                var items = await controller.GetPeopleByGender();
-                List<Person> personList = (List<Person>)items.Value;
+                ///call the controller and transform return value into list
+                var getCall = await controller.GetPeopleByGender();
+                OkObjectResult okResult = (OkObjectResult)getCall.Result;
+                List<Person> personList = (List<Person>)okResult.Value;
 
                 ///sanity check the sorting, first and last 3 entries
                 Assert.Equal(30, personList.Count);
@@ -52,15 +60,20 @@ namespace GRUnitTests.API
         }
 
         [Fact]
-        public async Task Get_Users_By_Birthdate_Returns_Persons_Sorted_By_Birthdate()
+        public async Task Get_People_By_Birthdate_Returns_Persons_Sorted_By_Birthdate()
         {
             using (var context = new DataContext(ContextOptions))
             {
+                ///setup the loggers and repository the controller relies on to work
                 var loggerMock = new Mock<ILogger<PersonController>>();
-                var controller = new PersonController(context, loggerMock.Object);
+                var repoLoggerMock = new Mock<ILogger<PersonRepository>>();
+                IPersonRepository repo = new PersonRepository(repoLoggerMock.Object, context);
+                var controller = new PersonController(context, loggerMock.Object, repo);
 
-                var items = await controller.GetPeopleByBirthdate();
-                List<Person> personList = (List<Person>)items.Value;
+                ///call the controller and transform return value into list
+                var getCall = await controller.GetPeopleByBirthdate();
+                OkObjectResult okResult = (OkObjectResult)getCall.Result;
+                List<Person> personList = (List<Person>)okResult.Value;
 
                 ///sanity check the sorting, first and last 3 entries
                 Assert.Equal(30, personList.Count);
@@ -74,15 +87,20 @@ namespace GRUnitTests.API
         }
 
         [Fact]
-        public async Task Get_Users_By_LastName_Returns_Persons_Sorted_By_LastName()
+        public async Task Get_People_By_LastName_Returns_Persons_Sorted_By_LastName()
         {
             using (var context = new DataContext(ContextOptions))
             {
+                ///setup the loggers and repository the controller relies on to work
                 var loggerMock = new Mock<ILogger<PersonController>>();
-                var controller = new PersonController(context, loggerMock.Object);
+                var repoLoggerMock = new Mock<ILogger<PersonRepository>>();
+                IPersonRepository repo = new PersonRepository(repoLoggerMock.Object, context);
+                var controller = new PersonController(context, loggerMock.Object, repo);
 
-                var items = await controller .GetPeopleByLastName();
-                List<Person> personList = (List<Person>)items.Value;
+                ///call the controller and transform return value into list
+                var getCall = await controller.GetPeopleByLastName();
+                OkObjectResult okResult = (OkObjectResult)getCall.Result;
+                List<Person> personList = (List<Person>)okResult.Value;
 
                 ///sanity check the sorting, first and last 3 entries
                 Assert.Equal(30, personList.Count);
@@ -111,10 +129,14 @@ namespace GRUnitTests.API
         {
             using (var context = new DataContext(ContextOptions))
             {
+                ///setup the loggers and repository the controller relies on to work
                 var loggerMock = new Mock<ILogger<PersonController>>();
-                var controller = new PersonController(context, loggerMock.Object);
+                var repoLoggerMock = new Mock<ILogger<PersonRepository>>();
+                IPersonRepository repo = new PersonRepository(repoLoggerMock.Object, context);
+                var controller = new PersonController(context, loggerMock.Object, repo);
                 string person = "Test, Person, Male, Red, 1/5/1960";
 
+                ///call the controller and transform return value into person object
                 var items = await controller.CreateRecord(person);
                 Person pers = items.Value;
 
@@ -132,10 +154,14 @@ namespace GRUnitTests.API
         {
             using (var context = new DataContext(ContextOptions))
             {
+                ///setup the loggers and repository the controller relies on to work
                 var loggerMock = new Mock<ILogger<PersonController>>();
-                var controller = new PersonController(context, loggerMock.Object);
+                var repoLoggerMock = new Mock<ILogger<PersonRepository>>();
+                IPersonRepository repo = new PersonRepository(repoLoggerMock.Object, context);
+                var controller = new PersonController(context, loggerMock.Object, repo);
                 string person = "Test ------- Person, Male, Red [][][[[] 1/5/1960";
 
+                ///call the controller and transform return value into person object
                 var items = await controller.CreateRecord(person);
                 var pers = items.Value;
 
